@@ -68,13 +68,7 @@ const showChatSupport = computed(() => {
 
 const menuItems = computed(() => {
   return [
-    {
-      show: showYearInReviewMenuItem.value,
-      showOnCustomBrandedInstance: false,
-      label: t('SIDEBAR_ITEMS.YEAR_IN_REVIEW'),
-      icon: 'i-lucide-gift',
-      click: openYearInReviewModal,
-    },
+
     {
       show: showChatSupport.value,
       showOnCustomBrandedInstance: false,
@@ -110,24 +104,7 @@ const menuItems = computed(() => {
         ninja.open({ parent: 'appearance_settings' });
       },
     },
-    {
-      show: true,
-      showOnCustomBrandedInstance: false,
-      label: t('SIDEBAR_ITEMS.DOCS'),
-      icon: 'i-lucide-book',
-      link: 'https://www.chatwoot.com/hc/user-guide/en',
-      nativeLink: true,
-      target: '_blank',
-    },
-    {
-      show: true,
-      showOnCustomBrandedInstance: false,
-      label: t('SIDEBAR_ITEMS.CHANGELOG'),
-      icon: 'i-lucide-scroll-text',
-      link: 'https://www.chatwoot.com/changelog/',
-      nativeLink: true,
-      target: '_blank',
-    },
+
     {
       show: currentUser.value.type === 'SuperAdmin',
       showOnCustomBrandedInstance: true,
