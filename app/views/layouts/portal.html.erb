@@ -35,6 +35,8 @@ By default, it renders:
       <%= yield(:head) %>
     <% else %>
       <title><%= @portal.page_title%></title>
+      <meta name="application-name" content="ChatMojo">
+      <meta name="apple-mobile-web-app-title" content="ChatMojo">
     <% end %>
     
     <% if @portal.logo.present? %>
