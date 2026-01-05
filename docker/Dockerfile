@@ -126,7 +126,8 @@ RUN apk update && apk add --no-cache \
   postgresql-client \
   imagemagick \
   git \
-  vips \
+  curl \
+    vips \
   && gem install bundler
 
 COPY --from=node /usr/local/bin/node /usr/local/bin/
