@@ -1,34 +1,18 @@
 #!/bin/sh
 
-set -x
+set -e
+
+# Replace the following line with the correct check for your specific setup if needed
+# For Chatwoot/Chatmojo, we need to prepare the database if tables are missing.
+
+echo "Checking database state..."
+# Attempt to run migrations/prepare. If it fails, it usually means the DB isn't reachable yet, 
+# but previous steps in Dockerfile handle waiting. 
+# This command creates tables if they don't exist.
+bundle exec rails db:chatwoot_prepare
 
 # Remove a potentially pre-existing server.pid for Rails.
-rm -rf /app/tmp/pids/server.pid
-rm -rf /app/tmp/cache/*
+rm -f /app/tmp/pids/server.pid
 
-echo "Waiting for postgres to become ready...."
-
-# Let DATABASE_URL env take presedence over individual connection params.
-# This is done to avoid printing the DATABASE_URL in the logs
-$(docker/entrypoints/helpers/pg_database_url.rb)
-PG_READY="pg_isready -h $POSTGRES_HOST -p $POSTGRES_PORT -U $POSTGRES_USERNAME"
-
-until $PG_READY
-do
-  sleep 2;
-done
-
-echo "Database ready to accept connections."
-
-#install missing gems for local dev as we are using base image compiled for production
-bundle install
-
-BUNDLE="bundle check"
-
-until $BUNDLE
-do
-  sleep 2;
-done
-
-# Execute the main process of the container
+# Start the Rails server
 exec "$@"
