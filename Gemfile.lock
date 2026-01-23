@@ -1154,8 +1154,10 @@ DEPENDENCIES
   wisper (= 2.0.0)
   working_hours
 
-RUBY VERSION
-   ruby 3.4.4p34
+PLATFORMS
+  ruby
+  x86_64-linux
+  x86_64-linux-musl
 
-BUNDLED WITH
-   2.5.16
+DEPENDENCIES
+  actioncable (= 7.1.5.2)
