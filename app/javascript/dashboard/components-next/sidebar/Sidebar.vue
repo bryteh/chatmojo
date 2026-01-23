@@ -500,6 +500,12 @@ const menuItems = computed(() => {
           to: accountScopedRoute('agent_list'),
         },
         {
+          name: 'Settings Custom Roles',
+          label: t('SIDEBAR.CUSTOM_ROLES'),
+          icon: 'i-lucide-shield-check',
+          to: accountScopedRoute('custom_roles_list'),
+        },
+        {
           name: 'Settings Teams',
           label: t('SIDEBAR.TEAMS'),
           icon: 'i-lucide-users',
