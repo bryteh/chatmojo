@@ -72,8 +72,8 @@ RUN if [ "$RAILS_ENV" = "production" ]; then \
   else bundle install -j 4 -r 3; \
   fi
 
-COPY package.json pnpm-lock.yaml ./
-RUN pnpm i
+# COPY package.json pnpm-lock.yaml ./
+# RUN pnpm i
 
 COPY . /app
 
@@ -82,10 +82,10 @@ COPY . /app
 RUN mkdir -p /app/log
 
 # generate production assets if production environment
-RUN if [ "$RAILS_ENV" = "production" ]; then \
-  SECRET_KEY_BASE=precompile_placeholder RAILS_LOG_TO_STDOUT=enabled bundle exec rake assets:precompile \
-  && rm -rf spec node_modules tmp/cache; \
-  fi
+# RUN if [ "$RAILS_ENV" = "production" ]; then \
+#   SECRET_KEY_BASE=precompile_placeholder RAILS_LOG_TO_STDOUT=enabled bundle exec rake assets:precompile \
+#   && rm -rf spec node_modules tmp/cache; \
+#   fi
 
 RUN git rev-parse HEAD > /app/.git_sha || echo 'unknown' > /app/.git_sha
 
