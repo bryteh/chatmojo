@@ -182,6 +182,21 @@ export const colors = {
       12: 'rgb(var(--amber-12) / <alpha-value>)',
     },
 
+    plum: {
+      1: 'rgb(var(--plum-1) / <alpha-value>)',
+      2: 'rgb(var(--plum-2) / <alpha-value>)',
+      3: 'rgb(var(--plum-3) / <alpha-value>)',
+      4: 'rgb(var(--plum-4) / <alpha-value>)',
+      5: 'rgb(var(--plum-5) / <alpha-value>)',
+      6: 'rgb(var(--plum-6) / <alpha-value>)',
+      7: 'rgb(var(--plum-7) / <alpha-value>)',
+      8: 'rgb(var(--plum-8) / <alpha-value>)',
+      9: 'rgb(var(--plum-9) / <alpha-value>)',
+      10: 'rgb(var(--plum-10) / <alpha-value>)',
+      11: 'rgb(var(--plum-11) / <alpha-value>)',
+      12: 'rgb(var(--plum-12) / <alpha-value>)',
+    },
+
     teal: {
       1: 'rgb(var(--teal-1) / <alpha-value>)',
       2: 'rgb(var(--teal-2) / <alpha-value>)',
@@ -224,6 +239,7 @@ export const colors = {
       amber: 'rgb(var(--solid-amber) / <alpha-value>)',
       blue: 'rgb(var(--solid-blue) / <alpha-value>)',
       brand: 'rgb(var(--solid-plum) / <alpha-value>)',
+      plum: 'rgb(var(--solid-plum) / <alpha-value>)',
       iris: 'rgb(var(--solid-iris) / <alpha-value>)',
     },
     alpha: {
