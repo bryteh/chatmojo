@@ -56,7 +56,7 @@ ENV PATH="$PNPM_HOME:$PATH"
 
 WORKDIR /app
 
-ARG CACHE_BURST=1
+
 COPY Gemfile Gemfile.lock ./
 
 # natively compile grpc and protobuf to support alpine musl (dialogflow-docker workflow)
@@ -75,6 +75,7 @@ RUN if [ "$RAILS_ENV" = "production" ]; then \
 COPY package.json pnpm-lock.yaml ./
 RUN pnpm i
 
+ARG CACHE_BURST=1
 COPY . /app
 
 # creating a log directory so that image wont fail when RAILS_LOG_TO_STDOUT is false
