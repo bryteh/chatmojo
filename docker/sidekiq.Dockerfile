@@ -56,6 +56,7 @@ ENV PATH="$PNPM_HOME:$PATH"
 
 WORKDIR /app
 
+ARG CACHE_BURST=1
 COPY Gemfile Gemfile.lock ./
 
 # natively compile grpc and protobuf to support alpine musl (dialogflow-docker workflow)
