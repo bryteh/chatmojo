@@ -11,22 +11,24 @@ const {
   redDark,
   violet,
   violetDark,
+  plum,
+  plumDark,
 } = require('@radix-ui/colors');
 
 export const colors = {
   woot: {
-    25: blue.blue2,
-    50: blue.blue3,
-    75: blue.blue4,
-    100: blue.blue5,
-    200: blue.blue7,
-    300: blue.blue8,
-    400: blueDark.blue11,
-    500: blueDark.blue10,
-    600: blueDark.blue9,
-    700: blueDark.blue8,
-    800: blueDark.blue6,
-    900: blueDark.blue2,
+    25: plum.plum2,
+    50: plum.plum3,
+    75: plum.plum4,
+    100: plum.plum5,
+    200: plum.plum7,
+    300: plum.plum8,
+    400: plumDark.plum11,
+    500: plumDark.plum10,
+    600: plumDark.plum9,
+    700: plumDark.plum8,
+    800: plumDark.plum6,
+    900: plumDark.plum2,
   },
   green: {
     50: greenDark.green12,
@@ -211,7 +213,8 @@ export const colors = {
     },
 
     black: '#000000',
-    brand: '#2781F6',
+
+    brand: '#AB4ABA',
     background: 'rgb(var(--background-color) / <alpha-value>)',
     solid: {
       1: 'rgb(var(--solid-1) / <alpha-value>)',
@@ -220,6 +223,7 @@ export const colors = {
       active: 'rgb(var(--solid-active) / <alpha-value>)',
       amber: 'rgb(var(--solid-amber) / <alpha-value>)',
       blue: 'rgb(var(--solid-blue) / <alpha-value>)',
+      brand: 'rgb(var(--solid-plum) / <alpha-value>)',
       iris: 'rgb(var(--solid-iris) / <alpha-value>)',
     },
     alpha: {
