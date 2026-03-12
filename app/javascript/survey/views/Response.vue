@@ -31,6 +31,7 @@ export default {
       inboxName: '',
       displayType: CSAT_DISPLAY_TYPES.EMOJI,
       messageContent: '',
+      hasSubmittedFeedbackForm: false,
     };
   },
   computed: {
@@ -42,7 +43,7 @@ export default {
       return this.surveyDetails && this.surveyDetails.rating;
     },
     isFeedbackSubmitted() {
-      return this.surveyDetails && this.surveyDetails.feedback_message;
+      return this.hasSubmittedFeedbackForm || (this.surveyDetails && !!this.surveyDetails.feedback_message);
     },
     isButtonDisabled() {
       return !(this.selectedRating && this.feedback);
@@ -85,6 +86,7 @@ export default {
     },
     sendFeedback(message) {
       this.feedbackMessage = message;
+      this.hasSubmittedFeedbackForm = true;
       this.updateSurveyDetails();
     },
     async getSurveyDetails() {
