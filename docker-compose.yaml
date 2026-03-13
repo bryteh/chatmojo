@@ -19,7 +19,7 @@ services:
     <<: *base
     build:
       context: .
-      dockerfile: ./docker/dockerfiles/rails.Dockerfile
+      dockerfile: ./docker/Dockerfile
     image: chatwoot-rails:development
     volumes:
       - ./:/app:delegated
@@ -65,7 +65,7 @@ services:
     <<: *base
     build:
       context: .
-      dockerfile: ./docker/dockerfiles/vite.Dockerfile
+      dockerfile: ./docker/Dockerfile
     image: chatwoot-vite:development
     volumes:
       - ./:/app:delegated
