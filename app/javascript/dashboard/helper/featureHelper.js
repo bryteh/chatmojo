@@ -20,6 +20,7 @@ const FEATURE_HELP_URLS = {
   webhook: 'https://chat.mojosense.co/help/webhooks',
   billing: 'https://chat.mojosense.co/pricing',
   saml: 'https://chat.mojosense.co/help/saml',
+  captain_billing: 'https://chat.mojosense.co/help/captain_billing',
 };
 
 export function getHelpUrlForFeature(featureName) {

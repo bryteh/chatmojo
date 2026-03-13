@@ -1,0 +1,10 @@
+app/javascript/dashboard/assets/scss/_next-colors.scss
+app/javascript/dashboard/components-next/sidebar/Sidebar.vue
+app/javascript/dashboard/components-next/sidebar/SidebarProfileMenu.vue
+app/javascript/dashboard/components/ui/DatePicker/components/CalendarWeek.vue
+app/javascript/dashboard/helper/featureHelper.js
+config/locales/tr.yml
+docker/Dockerfile
+public/brand-assets/logo.svg
+public/brand-assets/logo_dark.svg
+theme/colors.js
