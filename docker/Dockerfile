@@ -84,19 +84,19 @@ COPY . /app
 RUN mkdir -p /app/log
 
 # generate production assets if production environment
-# generate production assets if production environment
 RUN if [ "$RAILS_ENV" = "production" ]; then \
   bundle install && \
   SECRET_KEY_BASE=precompile_placeholder RAILS_LOG_TO_STDOUT=enabled bundle exec rake assets:precompile \
-  && (git rev-parse HEAD > /app/.git_sha || echo 'unknown' > /app/.git_sha) \
   && rm -rf spec node_modules tmp/cache; \
   fi
+
+RUN (git rev-parse HEAD > /app/.git_sha || echo 'unknown' > /app/.git_sha)
 
 # Remove unnecessary files
 RUN rm -rf /gems/ruby/3.4.0/cache/*.gem \
   && find /gems/ruby/3.4.0/gems/ \( -name "*.c" -o -name "*.o" \) -delete \
   && rm -rf .git \
-  && rm .gitignore
+  && rm -f .gitignore
 
 # final build stage
 FROM ruby:3.4.4-alpine3.21
