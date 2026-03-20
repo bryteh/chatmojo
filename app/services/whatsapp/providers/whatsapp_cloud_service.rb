@@ -174,7 +174,7 @@ class Whatsapp::Providers::WhatsappCloudService < Whatsapp::Providers::BaseServi
     #   { type: 'header', parameters: [...] },
     #   { type: 'button', sub_type: 'url', parameters: [...] }
     # ]
-    template_body[:components] = template_info[:parameters] || []
+    template_body[:components] = template_info[:parameters] if template_info[:parameters].present?
 
     template_body
   end

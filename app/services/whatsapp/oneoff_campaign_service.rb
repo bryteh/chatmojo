@@ -27,14 +27,9 @@ class Whatsapp::OneoffCampaignService
 
 
 
-  def validate_feature_flag!
-    raise 'WhatsApp campaigns feature not enabled' unless campaign.account.feature_enabled?(:whatsapp_campaign)
-  end
-
   def validate_campaign!
     validate_campaign_type!
     validate_campaign_status!
-    validate_feature_flag!
   end
 
   def extract_audience_labels

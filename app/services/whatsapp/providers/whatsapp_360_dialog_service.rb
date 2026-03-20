@@ -99,15 +99,16 @@ class Whatsapp::Providers::Whatsapp360DialogService < Whatsapp::Providers::BaseS
   end
 
   def template_body_parameters(template_info)
-    {
+    body_params = {
       name: template_info[:name],
       namespace: template_info[:namespace],
       language: {
         policy: 'deterministic',
         code: template_info[:lang_code]
-      },
-      components: template_info[:parameters]
+      }
     }
+    body_params[:components] = template_info[:parameters] if template_info[:parameters].present?
+    body_params
   end
 
   def send_interactive_text_message(phone_number, message)
