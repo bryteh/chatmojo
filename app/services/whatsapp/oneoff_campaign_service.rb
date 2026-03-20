@@ -55,7 +55,7 @@ class Whatsapp::OneoffCampaignService
       return
     end
 
-    send_whatsapp_template_message(to: contact.phone_number)
+    send_whatsapp_template_message(to: contact.phone_number.delete_prefix('+'))
   end
 
   def process_audience(audience_labels)
