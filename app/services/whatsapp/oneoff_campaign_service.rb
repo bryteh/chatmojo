@@ -25,9 +25,7 @@ class Whatsapp::OneoffCampaignService
     raise 'Completed Campaign' if campaign.completed?
   end
 
-  def validate_provider!
-    raise 'WhatsApp Cloud provider required' if channel.provider != 'whatsapp_cloud'
-  end
+
 
   def validate_feature_flag!
     raise 'WhatsApp campaigns feature not enabled' unless campaign.account.feature_enabled?(:whatsapp_campaign)
@@ -36,7 +34,6 @@ class Whatsapp::OneoffCampaignService
   def validate_campaign!
     validate_campaign_type!
     validate_campaign_status!
-    validate_provider!
     validate_feature_flag!
   end
 
