@@ -171,7 +171,17 @@ export const actions = {
   export: async ({ commit }, { payload, label }) => {
     commit(types.SET_CONTACT_UI_FLAG, { isExporting: true });
     try {
-      await ContactAPI.exportContacts({ payload, label });
+      const response = await ContactAPI.exportContacts({ payload, label });
+
+      const url = window.URL.createObjectURL(new Blob([response.data]));
+      const link = document.createElement('a');
+      link.href = url;
+      // Use default filename, the backend can format it or the user can rename it
+      link.setAttribute('download', 'contacts_export.csv');
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+      window.URL.revokeObjectURL(url);
 
       commit(types.SET_CONTACT_UI_FLAG, { isExporting: false });
     } catch (error) {

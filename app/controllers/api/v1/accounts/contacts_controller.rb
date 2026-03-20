@@ -44,9 +44,16 @@ class Api::V1::Accounts::ContactsController < Api::V1::Accounts::BaseController
 
   def export
     column_names = params['column_names']
-    filter_params = { :payload => params.permit!['payload'], :label => params.permit!['label'] }
-    Account::ContactsExportJob.perform_later(Current.account.id, Current.user.id, column_names, filter_params)
-    head :ok, message: I18n.t('errors.contacts.export.success')
+    filter_params = { payload: params.permit!['payload'], label: params.permit!['label'] }
+    
+    csv_data = Contacts::ExportService.new(
+      account: Current.account,
+      account_user: Current.user,
+      params: filter_params,
+      column_names: column_names
+    ).perform
+
+    send_data csv_data, filename: "#{Current.account.name}_#{Current.account.id}_contacts_export.csv", type: 'text/csv'
   end
 
   # returns online contacts
