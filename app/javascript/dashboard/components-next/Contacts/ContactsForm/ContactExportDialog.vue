@@ -38,7 +38,7 @@ const exportContacts = async () => {
   emit('export', {
     ...query,
     label: route.params.label || '',
-    column_names: ['id', 'name', 'email', 'phone_number', 'labels']
+    column_names: ['id', 'name', 'email', 'phone_number', 'company_name', 'description', 'city', 'country', 'country_code', 'labels']
   });
 };
 

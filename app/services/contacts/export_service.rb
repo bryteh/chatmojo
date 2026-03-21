@@ -5,12 +5,13 @@ class Contacts::ExportService
 
   def perform
     CSV.generate do |csv|
-      headers = valid_headers(column_names)
-      csv << headers
+      csv << default_columns
       contacts.each do |contact|
-        csv << headers.map do |header|
+        csv << default_columns.map do |header|
           if header == 'labels'
             contact.labels.pluck(:title).join(', ')
+          elsif %w[company_name description city country country_code].include?(header)
+            contact.additional_attributes[header]
           else
             contact.send(header)
           end

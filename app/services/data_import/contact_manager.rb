@@ -66,8 +66,10 @@ class DataImport::ContactManager
     end
     
     contact.additional_attributes ||= {}
-    contact.additional_attributes[:company] = params[:company] if params[:company].present?
-    contact.additional_attributes[:city] = params[:city] if params[:city].present?
-    contact.assign_attributes(custom_attributes: contact.custom_attributes.merge(params.except(:identifier, :email, :name, :phone_number, :labels)))
+    %w[company_name description city country country_code].each do |attr|
+      contact.additional_attributes[attr] = params[attr.to_sym] if params[attr.to_sym].present?
+    end
+
+    contact.assign_attributes(custom_attributes: contact.custom_attributes.merge(params.except(:identifier, :email, :name, :phone_number, :labels, :company_name, :description, :city, :country, :country_code)))
   end
 end
