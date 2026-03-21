@@ -1,6 +1,6 @@
-id,name,email,identifier,phone_number,company_name,description,city,country,country_code,labels
-1,Clarice Uzzell,cuzzell0@mozilla.org,bb4e11cd-0f23-49da-a123-dcc1fec6852c,+498963648018,MojoSense,"A cool person",Kuala Lumpur,Malaysia,MY,"VIP, Customer"
-2,Marieann Creegan,mcreegan1@cornell.edu,e60bab4c-9fbb-47eb-8f75-42025b789c47,+15417543010,ChatMojo,"Another tester",New York,United States,US,"Lead"
+name,email,phone_number,company_name,description,city,country,country_code,labels
+Clarice Uzzell,cuzzell0@mozilla.org,+498963648018,MojoSense,"A cool person",Kuala Lumpur,Malaysia,MY,"VIP, Customer"
+Marieann Creegan,mcreegan1@cornell.edu,+15417543010,ChatMojo,"Another tester",New York,United States,US,"Lead"
 3,Nancey Windibank,nwindibank2@bluehost.com,f793e813-4210-4bf3-a812-711418de25d2,+15417543011,,73.44.41.59,Random-value1,Random-value1
 4,Sibel Stennine,sstennine3@yellowbook.com,d6e35a2d-d093-4437-a577-7df76316b937,+15417543011,,115.249.27.155,Random-value2,Random-value2
 5,Tina O'Lunney,tolunney4@si.edu,3540d40a-5567-4f28-af98-5583a7ddbc56,+15417543011,,219.181.212.8,Random-value3,Random-value3
