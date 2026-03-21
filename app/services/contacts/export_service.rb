@@ -9,9 +9,9 @@ class Contacts::ExportService
       contacts.each do |contact|
         csv << default_columns.map do |header|
           if header == 'labels'
-            contact.labels.pluck(:title).join(', ')
+            contact.labels.pluck(:name).join(', ')
           elsif %w[company_name description city country country_code].include?(header)
-            contact.additional_attributes[header]
+            contact.additional_attributes.present? ? contact.additional_attributes[header] : nil
           else
             contact.send(header)
           end
