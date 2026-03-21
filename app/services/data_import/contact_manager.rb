@@ -58,6 +58,22 @@ class DataImport::ContactManager
 
   private
 
+  def resolve_country_code(country_name)
+    return nil if country_name.blank?
+
+    @country_map ||= begin
+      file_path = Rails.root.join('app', 'javascript', 'shared', 'constants', 'countries.js')
+      content = File.read(file_path)
+      map = {}
+      content.scan(/name:\s*'([^']+)'[^}]+id:\s*'([^']+)'/m) do |name, id|
+        map[name.strip.downcase] = id.strip
+      end
+      map
+    end
+
+    @country_map[country_name.strip.downcase]
+  end
+
   def update_contact_attributes(params, contact)
     contact.name = params[:name] if params[:name].present?
     
@@ -68,6 +84,11 @@ class DataImport::ContactManager
     contact.additional_attributes ||= {}
     %w[company_name description city country country_code].each do |attr|
       contact.additional_attributes[attr] = params[attr.to_sym] if params[attr.to_sym].present?
+    end
+
+    if contact.additional_attributes['country'].present? && contact.additional_attributes['country_code'].blank?
+      resolved_code = resolve_country_code(contact.additional_attributes['country'])
+      contact.additional_attributes['country_code'] = resolved_code if resolved_code
     end
 
     contact.assign_attributes(custom_attributes: contact.custom_attributes.merge(params.except(:identifier, :email, :name, :phone_number, :labels, :company_name, :description, :city, :country, :country_code)))
