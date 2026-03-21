@@ -17,8 +17,7 @@ const fileInput = ref(null);
 
 const hasSelectedFile = ref(null);
 const selectedFileName = ref('');
-
-const csvUrl = '/downloads/import-contacts-sample.csv';
+const csvUrl = '/downloads/import-contacts-sample.csv?v=2';
 
 const handleFileClick = () => fileInput.value?.click();
 
