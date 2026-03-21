@@ -7,9 +7,14 @@ class Contacts::ExportService
     CSV.generate do |csv|
       headers = valid_headers(column_names)
       csv << headers
-      
       contacts.each do |contact|
-        csv << headers.map { |header| contact.send(header) }
+        csv << headers.map do |header|
+          if header == 'labels'
+            contact.labels.pluck(:title).join(', ')
+          else
+            contact.send(header)
+          end
+        end
       end
     end
   end
@@ -28,10 +33,11 @@ class Contacts::ExportService
   end
 
   def valid_headers(column_names)
-    (column_names.presence || default_columns) & Contact.column_names
+    available_columns = Contact.column_names + ['labels']
+    (column_names.presence || default_columns) & available_columns
   end
 
   def default_columns
-    %w[id name email phone_number]
+    %w[id name email phone_number labels]
   end
 end
