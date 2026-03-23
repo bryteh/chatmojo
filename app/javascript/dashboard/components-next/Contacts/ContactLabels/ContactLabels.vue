@@ -93,13 +93,16 @@ const handleRemoveLabel = label => {
 watch(
   () => props.contactId,
   (newVal, oldVal) => {
-    if (newVal !== oldVal) {
+    if (newVal !== oldVal && newVal) {
       fetchLabels(newVal);
     }
-  }
+  },
+  { immediate: true }
 );
 onMounted(() => {
-  if (route.params.contactId) {
+  if (props.contactId) {
+    fetchLabels(props.contactId);
+  } else if (route.params.contactId) {
     fetchLabels(route.params.contactId);
   }
 });
