@@ -78,7 +78,7 @@ class DataImport::ContactManager
     contact.name = params[:name] if params[:name].present?
     
     if params[:labels].present?
-      contact.label_list.add(params[:labels].split(',').map(&:strip))
+      contact.label_list.add(params[:labels].split(',').map { |lbl| lbl.strip.downcase })
     end
     
     contact.additional_attributes ||= {}
