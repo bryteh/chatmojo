@@ -53,6 +53,19 @@ class DataImportJob < ApplicationJob
   def import_contacts(contacts)
     Contact.import(contacts, synchronize: contacts, on_duplicate_key_ignore: true, track_validation_failures: true, validate: true, batch_size: 1000)
     
+    # Pre-emptively register any brand new tag strings into Chatwoot's physical Label database so the UI recognizes them
+    unique_labels = contacts.flat_map(&:label_list).uniq.reject(&:blank?)
+    unique_labels.each do |label_name|
+      begin
+        @data_import.account.labels.find_or_create_by!(title: label_name) do |label|
+          label.description = 'Added via CSV import'
+          label.show_on_sidebar = true
+        end
+      rescue ActiveRecord::RecordInvalid => e
+        Rails.logger.error "Failed to pre-create physical label record #{label_name}: #{e.message}"
+      end
+    end
+    
     # Save the explicitly registered labels locally on the contacts object since activerecord-import skips associative fields
     contacts.each do |contact|
       if contact.label_list.present?
