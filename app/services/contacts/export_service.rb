@@ -4,7 +4,7 @@ class Contacts::ExportService
   pattr_initialize [:account!, :account_user!, :params, :column_names]
 
   def perform
-    CSV.generate do |csv|
+    CSV.generate("\uFEFF") do |csv|
       headers = valid_headers(column_names)
       csv << headers
       contacts.each do |contact|

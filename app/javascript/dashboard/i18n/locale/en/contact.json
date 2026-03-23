@@ -325,7 +325,7 @@
           "CHANGE": "Change",
           "CANCEL": "Cancel",
           "IMPORT": "Import",
-          "SUCCESS_MESSAGE": "You will be notified via email when the import is complete.",
+          "SUCCESS_MESSAGE": "Your contacts have been successfully imported.",
           "ERROR_MESSAGE": "There was an error, please try again"
         },
         "EXPORT_CONTACT": {
