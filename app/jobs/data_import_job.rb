@@ -73,9 +73,7 @@ class DataImportJob < ApplicationJob
         db_contact ||= @data_import.account.contacts.find_by(phone_number: contact.phone_number) if contact.phone_number.present?
         
         if db_contact
-          # Merge existing string tags with the newly parsed CSV tag strings, unique them, and force an explicit AR update
-          merged_tags = (db_contact.label_list + contact.label_list).uniq
-          db_contact.update!(label_list: merged_tags)
+          db_contact.add_labels(contact.label_list)
         end
       end
     end
