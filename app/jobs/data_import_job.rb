@@ -51,10 +51,16 @@ class DataImportJob < ApplicationJob
   end
 
   def import_contacts(contacts)
+    # Cache the parsed labels before they are wiped by the database synchronization mapping natively!
+    parsed_labels_cache = contacts.each_with_object({}) do |c, hash|
+      key = c.email.presence || c.phone_number.presence
+      hash[key] = c.label_list if key.present? && c.label_list.present?
+    end
+
     Contact.import(contacts, synchronize: contacts, on_duplicate_key_ignore: true, track_validation_failures: true, validate: true, batch_size: 1000)
     
     # Pre-emptively register any brand new tag strings into Chatwoot's physical Label database so the UI recognizes them
-    unique_labels = contacts.flat_map(&:label_list).uniq.reject(&:blank?)
+    unique_labels = parsed_labels_cache.values.flatten.uniq.reject(&:blank?)
     unique_labels.each do |label_name|
       begin
         @data_import.account.labels.find_or_create_by!(title: label_name) do |label|
@@ -66,15 +72,11 @@ class DataImportJob < ApplicationJob
       end
     end
     
-    # Save the explicitly registered labels locally on the contacts object since activerecord-import skips associative fields
-    contacts.each do |contact|
-      if contact.label_list.present?
-        db_contact = @data_import.account.contacts.find_by(email: contact.email) if contact.email.present?
-        db_contact ||= @data_import.account.contacts.find_by(phone_number: contact.phone_number) if contact.phone_number.present?
-        
-        if db_contact
-          db_contact.add_labels(contact.label_list)
-        end
+    # Safely assign tags from our isolated memory cache now that instances exist physically
+    parsed_labels_cache.each do |lookup_key, tags|
+      db_contact = @data_import.account.contacts.find_by(email: lookup_key) || @data_import.account.contacts.find_by(phone_number: lookup_key)
+      if db_contact
+        db_contact.add_labels(tags)
       end
     end
   end
