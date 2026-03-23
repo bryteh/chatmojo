@@ -51,12 +51,19 @@ class DataImportJob < ApplicationJob
   end
 
   def import_contacts(contacts)
-    # <struct ActiveRecord::Import::Result failed_instances=[], num_inserts=1, ids=[444, 445], results=[]>
     Contact.import(contacts, synchronize: contacts, on_duplicate_key_ignore: true, track_validation_failures: true, validate: true, batch_size: 1000)
     
     # Save the explicitly registered labels locally on the contacts object since activerecord-import skips associative fields
     contacts.each do |contact|
-      contact.save if contact.label_list.present?
+      if contact.label_list.present?
+        db_contact = @data_import.account.contacts.find_by(email: contact.email) if contact.email.present?
+        db_contact ||= @data_import.account.contacts.find_by(phone_number: contact.phone_number) if contact.phone_number.present?
+        
+        if db_contact
+          db_contact.label_list.add(contact.label_list)
+          db_contact.save!
+        end
+      end
     end
   end
 
