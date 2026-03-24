@@ -212,6 +212,12 @@ export default {
         ...this.filteredAgentOnAvailability,
       ];
     },
+    teamsWithNone() {
+      return [
+        { id: null, name: 'None' },
+        ...this.teams,
+      ];
+    },
     showSnooze() {
       // Don't show snooze if the conversation is already snoozed/resolved/pending
       return this.status === wootConstants.STATUS_TYPE.OPEN;
@@ -373,7 +379,7 @@ export default {
         :sub-menu-available="!!teams.length"
       >
         <MenuItem
-          v-for="team in teams"
+          v-for="team in teamsWithNone"
           :key="team.id"
           :option="generateMenuLabelConfig(team, 'team')"
           @click.stop="$emit('assignTeam', team)"
